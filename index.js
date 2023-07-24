@@ -29,7 +29,7 @@ btn.addEventListener('click', async () => {
         Swal.fire({
             title: `Todo Added`,
             icon: 'success'
-        }).then(()=>{
+        }).then(() => {
             location.reload()
         })
         console.log("Document written with ID: ", docRef.id);
@@ -56,13 +56,25 @@ async function showTodos() {
 }
 showTodos()
 
-async function delTodo(id) {
-    await deleteDoc(doc(db, "todos", id));
+function delTodo(id) {
     Swal.fire({
-        title: `Todo Deleted`,
-        icon: 'success'
-    }).then(()=>{
-        location.reload()
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+    }).then(async(result) => {
+        if (result.isConfirmed) {
+            Swal.fire(
+                'Deleted!',
+                'Your Todo has been deleted.',
+                'success'
+                )
+                await deleteDoc(doc(db, "todos", id));
+                location.reload()
+        }
     })
 }
 window.delTodo = delTodo
@@ -77,12 +89,12 @@ function UpTodo(id) {
     }).then(async (result) => {
         if (result.isConfirmed) {
             await updateDoc(azaan, {
-                todo: result.value
+                todo: result.value + " (edited on " + new Date().getHours() + ":" + new Date().getMinutes() + " )"
             });
             Swal.fire({
                 title: `Value Replaced`,
                 icon: 'success'
-            }).then(()=>{
+            }).then(() => {
                 location.reload()
             })
         }
