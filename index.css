@@ -12,20 +12,26 @@
 body{
   background: #cdcdcd;
   min-height: 100vh;
-  overflow: hidden;
   font-family: 'Poppins', sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 main{
   width: 90vw;
   margin: 0 auto;
   max-width: 35rem;
-  margin-top: 8rem;
   background: #222;
   color: #eee;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
   border-radius: 1em;
   padding: 1.2rem 2rem 1.8rem;
+  height: 600px;
+  overflow-y: auto;
+}
+main::-webkit-scrollbar{
+  width: 0;
 }
 
 /* alert */
